@@ -1,0 +1,120 @@
+class Client:
+  def __init__(self,nome = "",telefone = "",endereco = "",complemento = ""):
+    self.__nome = nome 
+    self.__telefone = telefone 
+    self.__endereco = endereco 
+    self.__complemento  = complemento 
+    self.__pedidos = {} ##  historico !!!
+    self.__dinheiro = 0 
+
+  def cliente(self):
+    return "Cliente: %a /  Telefone: %a / Endereco: %a / Complemento: %a"%(self.__nome,  self.__telefone , self.__endereco , self.__complemento)
+    
+
+  def pedido(self):
+    tam = [10,15,25]
+    lista = []
+    
+    tam1 = ["Pizza Pequena","Pizza Media","Pizza Familia"]
+    print("")
+    print("Digite o tamanho da pizza  1 Pequena / 2 Media / 3 Familia")
+    x = int(input()) - 1 
+    self.__dinheiro += tam[x] 
+
+    print("")
+    print("Digite o(s) sabor(es) da pizza")
+    print("1 Peperoni / 2 Queijo / 3 Calabresa / 4 Milho / 5 Bacon / 6 Chocolate / 7 Milho e Presunto / 8 Banana Split")
+    xx = list(str(input().split()))
+    vet = ""
+    
+    if "1" in xx:
+      self.__dinheiro += 5
+      vet += "Peperoni "
+    if "2" in xx:
+      self.__dinheiro += 8
+      vet += "Queijo "
+    if "3" in xx:
+      self.__dinheiro += 5
+      vet += "Calabresa "
+    if "4" in xx:
+      self.__dinheiro += 12
+      vet += "Milho "
+    if "5" in xx:
+      self.__dinheiro += 10
+      vet += "Bacon "
+    if "6" in xx:
+      self.__dinheiro += 15
+      vet += "Chocolate "
+    if "7" in xx:
+      self.__dinheiro += 7
+      vet += "Milho e Presunto "
+    if "8" in xx:
+      self.__dinheiro += 8
+      vet += "Banana Split "
+    
+    print("")
+    print("Digite os adicionais desejados")
+    print("1 Refrigerante 2 litros / 2 Bacon / 3 Sorvete ")
+    xxx = list(str(input().split()))
+    vet2 = ""
+    if "1" in xxx:
+      self.__dinheiro += 6
+      vet2 += "Refrigerante 2 litros "
+    if "2" in xxx:
+      self.__dinheiro += 3 
+      vet2 += "Bacon "
+    if "3" in xxx:
+      self.__dinheiro += 10
+      vet2 += "Sorvete " 
+    
+    print("")
+    print("Valor total da compra %i"%(self.__dinheiro))
+    self.metododepagamento()
+    lista.append(tam1[x])
+    lista.append(vet)
+    lista.append(vet2) 
+    if self.__nome not in self.__pedidos:
+      self.__pedidos.update({self.__nome : lista}) 
+
+    else:
+      self.__pedidos.update({self.__nome : lista})
+  
+  def historico(self):
+    return self.__pedidos
+  
+  def metododepagamento(self): ## pagamento do pedido 
+    print("Como deseja pagar ?")
+    print("1 Credito / Debito | 2 Dinheiro")
+    pagamento = input()
+    
+    if pagamento == 1: 
+      print("Transaçao Concluida")
+      self.__dinheiro == 0
+    
+    elif pagamento == 2: 
+      while True:
+        dinheiro = float(input())
+        if dinheiro >= self.__dinheiro:
+          print("Transaçao Concluida")
+          self.__dinheiro == 0 
+          break
+        else:
+          print("Valor invalido , porfavor inserir valor valido para pagamento ")
+
+
+
+a = Client("Andre","95984011635","Rua Maria Manchen","Predio")
+b = Client("Bruno","21980908761","Rua Maria Manchen","Predio")
+c = Client("Lucas","9824284233","Rua Jose Higino","Casa")
+
+print(a.cliente())
+print(b.cliente())
+a.pedido()
+b.pedido()
+a.pedido()
+b.pedido()
+c.pedido()
+c.pedido()
+print(a.historico())
+print(b.historico())
+print(c.historico)
